@@ -1,0 +1,164 @@
+Python Diaries Chapter 3 Map | Filter | For-else | List Comprehension
+Python competitive programming
+Author: Divyanshu aka StellarCoder
+Python 2.x
+This is third article of the series--> Python Diaries (Python 2.x)
+Link for second article --> Python Diaries chapter 2
+
+In previous article we discussed print methods, input methods and string manipulation in detail. In this article we will cover for-else loop,filter function,list comprehension,map function and lambda function. This one will be a little bit tricky but I will try to keep things as simple as possible.
+
+For-else Loop
+
+Have you ever used flag in your program? If yes, you will be able to relate it with for-else Loop.
+
+flag is an 'indicator' variable. It tells us about whether a event took place or not.
+
+Let me clarify it through an example.
+
+Question: print whether zero is present in the array 'arr'.If 0 is present, print "Zero is present in the array", otherwise print "Zero is not present in the array" arr=[10,20,30,40,50,0,60,70,80,90]
+
+Solution:
+
+arr=[10,20,30,40,50,0,60,70,80,90]
+flag=0
+for item in arr:
+    if item==0:
+        flag=1
+
+if flag==1:
+    print "Zero is present in the array"
+else:
+    print "Zero is not present in the array"
+We could have done this question without the flag also, but I wanted to show you the usage of the flag.
+
+Now let us see how to approach above problem using for-else loop. The 'for-else' loop works in the same way as the 'for' loop but it has an extra 'else' part which gets executed if no 'break' is given in the 'for' part the 'for-else' loop.
+
+program 1
+
+arr=[10,20,30,40,50,0,60,70,80,90]
+for item in arr:
+    if item==0:
+        print "Zero is present"
+        break
+else:
+    print "Zero is not present in the array"
+Output -> Zero is present in the array
+Note--> If we had not used the break statement then the else block would have also got executed and the output would have been
+
+Output->
+Zero is present in the array
+Zero is not present in the array
+Before moving on to the next topics, let me first give you a brief idea about syntax of function.I will explain it thoroughly in upcoming articles but you need to have a basic idea of syntax of a function to understand following topics.
+Functions
+
+syntax-->
+
+def name_of_function(arguments_separated_by_comma):
+    your code/logic
+    return whatever_you_want_to
+    # returning something is not compulsory
+Exapmle
+def sum_of_numbers(a,b):
+    c=a+b
+    return c
+
+print sum_of_numbers(2,3)
+Output-->5
+List comprehension
+
+List comprehension is a way to define and create list. suppose, for numbers 1 to 10, you want to create a list which has squares of these numbers ie. [1,4,9,16,25,36,49,64,81,100]
+
+Now to create that list we will use list comprehension
+syntax-->
+array_name = [expression(i) for i in old_array_name if filter(i)]
+or
+[ expression for item in list if conditional ]
+
+expression is the operation you want to perform on 'i', it can be function or any simple expression. then we loop through items present in the given list using which we will make new list or we can use range() to make the list.
+If conditional is optional to filter the elements.
+
+Let us see some examples
+
+program 1
+
+list_of_squares=[x**2 for x in range(1,11)]
+Output--> [1,4,9,16,25,36,49,64,81,100]
+program 2
+
+# List of squares of odd numbers
+ list_of_squares=[x**2 for x in range(1,11) if x%2==1]
+Output-->[1, 9, 25, 49, 81]
+program 3
+
+def quadratic(x):
+    y=x**2 + 5*x + 9
+    return y
+
+list_of_quadratic=[quadratic(x) for x in range(4,9)]
+Output-->[45, 59, 75, 93, 113]
+and so on.....
+
+We can also use list comprehension to create multi-dimesional arrays, check the following link for the same https://docs.python.org/3/tutorial/datastructures.html
+
+MAP
+
+It applies the function to every item of iterable(list,tuple etc..) and returns a list of the results.
+
+Syntax of map function ->
+map(function, iterable[,optional args])
+
+Function can be a normal function or a lambda function.
+Lambda function is a function which doesn't have name ie.Anonymous Function.
+
+Example of Lambda function
+
+magic=lambda x:x**2 + 5*x + 9
+magic(4)
+Output--> 45
+Syntax of lambda function
+first of all write 'lambda' then a dummy variable('x' in our case) and then the expression separated by colon.
+
+Now let us look at some examples of map function
+
+Program 1
+
+arr=range(1,10)
+list_of_quadratics=map(lambda x:x**2+ 5*x + 9,arr)
+print list_of_quadratics
+#Default return data type of map is list, so no need of using square brackets '[ ]' or 'list()'
+Output--> [15, 23, 33, 45, 59, 75, 93, 113, 135]
+Note--> If we had used 'list()' then it would have made no difference and if we had used '[ ] 'then we would have got a 2-d array with this array at 0th index.
+Program 2
+
+#Converts string to uppercase
+def To_Upper_Case(x):
+    x=x.upper()
+    return x
+
+arr=['harvey','specter','is','awesome']
+our_array=map(To_Upper_Case,arr)
+print our_array
+Output-->['HARVEY', 'SPECTER', 'IS', 'AWESOME']
+Filter
+
+It returns a list of those elements for which the function used/passed returns True and filters out the value which return False or None.
+
+Syntax
+filter(function,iterable)
+Again function can be lambda also.
+
+Examples of filter function
+
+Program 1
+
+arr=range(1,60)
+final_list=filter(lambda x:x>50,arr)
+print final_list
+Output--> [51, 52, 53, 54, 55, 56, 57, 58, 59]
+Program 2
+
+arr=range(1,20)
+final_array=filter(lambda x:x%2==1,arr)
+print final_array
+Output-> [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
+Similarly, you can customize function and list according to your requirement and use combination of filter function,lambda functions, map function and list comprehension.
